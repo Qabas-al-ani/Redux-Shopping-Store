@@ -1,4 +1,6 @@
 # Redux Store 
+
+To checkout  the live site on [Heroku]( https://afternoon-island-53749.herokuapp.com/ ).
   ----
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Table of Contents
@@ -45,9 +47,9 @@ Contributions, issues, and feature requests are welcome!
 
 ### A Screenshot of my deployed Redux Store 
 
-![ScreenShots]() 
-
-[full demo video]()
+![ScreenShots](./client/public/images/store-1.gif) 
+![ScreenShots](./client/public/images/store-2.gif) 
+![ScreenShots](./client/public/images/store-3.gif) 
 
 ### Questions? 
 For any questions, please contact me with the information below:
