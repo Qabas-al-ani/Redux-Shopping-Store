@@ -1,8 +1,10 @@
 # Redux Store 
 
-To checkout  the live site on [Heroku]( https://afternoon-island-53749.herokuapp.com/ ).
+To checkout  the live site on [Heroku]( https://grim-cat-76535.herokuapp.com/ ).
+
   ----
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
