@@ -1,11 +1,17 @@
-# Redux Store 
+# Redux Store
 
-To checkout  the live site on [Heroku]( https://grim-cat-76535.herokuapp.com/ ).
+## 🚀 Live Demo
 
-  ----
-  [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[Frontend](https://redux-shopping-store-frontend.netlify.app) | [Backend API](https://redux-shopping-store.onrender.com)
+
+> _Migrated from Heroku to modern cloud infrastructure (Netlify + Render) - demonstrating deployment adaptability_
+
+---
+
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Table of Contents
+
 - [Description](#description)
 - [Installation](#installation)
 - [Technologies](#technologies)
@@ -14,10 +20,11 @@ To checkout  the live site on [Heroku]( https://grim-cat-76535.herokuapp.com/ ).
 - [Questions](#questions)
 
 ## Description:
-I have created an e-commerce app that allows users to go online and shop whatever they like they just have to be logged in and they can click on the product increase the quantity or decrease it and then they can  pay with their cards check out their purchases and see their order historyThis application is built using Html, Css, Javascript, Node.js, GraphQL, Apollo Server, MongoDB and it is using React for the front end and Redux for state management.
 
+I have created an e-commerce app that allows users to go online and shop whatever they like they just have to be logged in and they can click on the product increase the quantity or decrease it and then they can pay with their cards check out their purchases and see their order historyThis application is built using Html, Css, Javascript, Node.js, GraphQL, Apollo Server, MongoDB and it is using React for the front end and Redux for state management.
 
 ## Technologies
+
 ```
 - Html.
 - Css.
@@ -30,30 +37,31 @@ I have created an e-commerce app that allows users to go online and shop whateve
 - Redux.
 ```
 
-
 ### Installation
+
 ```
 npm start
 ```
 
-
 ### Usage
+
 The app allows users to save their buys and buy again or delete if they decided to get ride of some of them it's very easy to use and helpful
 
-
 ### Contribution
+
 ```
 Contributions, issues, and feature requests are welcome!
    Give a ⭐️ if you like this project!
 ```
 
-### A Screenshot of my deployed Redux Store 
+### A Screenshot of my deployed Redux Store
 
-![ScreenShots](./client/public/images/store-1.gif) 
-![ScreenShots](./client/public/images/store-2.gif) 
-![ScreenShots](./client/public/images/store-3.gif) 
+![ScreenShots](./client/public/images/store-1.gif)
+![ScreenShots](./client/public/images/store-2.gif)
+![ScreenShots](./client/public/images/store-3.gif)
 
-### Questions? 
+### Questions?
+
 For any questions, please contact me with the information below:
 
 qabasalani1@gmail.com
