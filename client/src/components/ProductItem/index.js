@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
+import { idbPromise, getProductImageSrc, PLACEHOLDER_IMAGE } from "../../utils/helpers";
+import Auth from "../../utils/auth";
 
 function ProductItem(item) {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
+  const [hasImage, setHasImage] = useState(true);
 
   const {
     image,
@@ -18,6 +20,11 @@ function ProductItem(item) {
   } = item;
 
   const { cart } = state
+
+  if (!hasImage) {
+    // Hide products whose images fail to load
+    return null;
+  }
 
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === _id)
@@ -45,7 +52,11 @@ function ProductItem(item) {
       <Link to={`/products/${_id}`}>
         <img
           alt={name}
-          src={`/images/${image}`}
+          src={getProductImageSrc(image)}
+          onError={(e) => {
+            e.target.onerror = null;
+            setHasImage(false);
+          }}
         />
         <p>{name}</p>
       </Link>
@@ -53,7 +64,11 @@ function ProductItem(item) {
         <div>{quantity} {pluralize("item", quantity)} in stock</div>
         <span>${price}</span>
       </div>
-      <button onClick={addToCart}>Add to cart</button>
+      {Auth.loggedIn() ? (
+        <button onClick={addToCart}>Add to cart</button>
+      ) : (
+        <Link to="/login" className="btn-link">Log in to add to cart</Link>
+      )}
     </div>
   );
 }

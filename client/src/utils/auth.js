@@ -28,10 +28,8 @@ class AuthService {
   }
 
   login(idToken) {
-    // Saves user token to localStorage
+    // Saves user token to localStorage (caller handles redirect for faster client-side navigation)
     localStorage.setItem('id_token', idToken);
-
-    window.location.assign('/');
   }
 
   logout() {

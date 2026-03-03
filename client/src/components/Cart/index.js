@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { QUERY_CHECKOUT } from '../../utils/queries';
@@ -15,6 +15,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  const [showSummary, setShowSummary] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -61,6 +62,23 @@ const Cart = () => {
     });
   }
 
+  function handleCheckoutClick() {
+    setShowSummary(true);
+  }
+
+  function handleConfirmCheckout() {
+    setShowSummary(false);
+    submitCheckout();
+  }
+
+  function handleCancelCheckout() {
+    setShowSummary(false);
+  }
+
+  if (!Auth.loggedIn()) {
+    return null;
+  }
+
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
@@ -71,37 +89,58 @@ const Cart = () => {
     );
   }
 
+  const total = calculateTotal();
+
   return (
-    <div className="cart">
-      <div className="close" onClick={toggleCart}>
-        [close]
+    <>
+      <div className="cart">
+        <div className="close" onClick={toggleCart}>
+          [close]
+        </div>
+        <h2>Shopping Cart</h2>
+        {state.cart.length ? (
+          <div>
+            {state.cart.map((item) => (
+              <CartItem key={item._id} item={item} />
+            ))}
+
+            <div className="flex-row space-between">
+              <strong>Total: ${total}</strong>
+
+              {Auth.loggedIn() ? (
+                <button onClick={handleCheckoutClick}>Checkout</button>
+              ) : (
+                <span>(log in to check out)</span>
+              )}
+            </div>
+          </div>
+        ) : (
+          <h3>
+            <span role="img" aria-label="shocked">
+              😱
+            </span>
+            You haven't added anything to your cart yet!
+          </h3>
+        )}
       </div>
-      <h2>Shopping Cart</h2>
-      {state.cart.length ? (
-        <div>
-          {state.cart.map((item) => (
-            <CartItem key={item._id} item={item} />
-          ))}
 
-          <div className="flex-row space-between">
-            <strong>Total: ${calculateTotal()}</strong>
-
-            {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
-            ) : (
-              <span>(log in to check out)</span>
-            )}
+      {showSummary && (
+        <div className="cart-modal-backdrop">
+          <div className="cart-modal">
+            <h3>Order summary</h3>
+            <p>Dear customer, your total is: <strong>${total}</strong></p>
+            <div className="cart-modal-actions">
+              <button type="button" onClick={handleCancelCheckout}>
+                Cancel
+              </button>
+              <button type="button" onClick={handleConfirmCheckout}>
+                Continue to checkout
+              </button>
+            </div>
           </div>
         </div>
-      ) : (
-        <h3>
-          <span role="img" aria-label="shocked">
-            😱
-          </span>
-          You haven't added anything to your cart yet!
-        </h3>
       )}
-    </div>
+    </>
   );
 };
 

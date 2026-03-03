@@ -1,8 +1,9 @@
 import React from "react";
 import Auth from "../../utils/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Nav() {
+  const location = useLocation();
 
   function showNavigation() {
     if (Auth.loggedIn()) {
@@ -15,8 +16,8 @@ function Nav() {
           </li>
           <li className="mx-1">
             {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
+            <a href="/" onClick={(e) => { e.preventDefault(); Auth.logout(); }}>
+              Log out
             </a>
           </li>
         </ul>

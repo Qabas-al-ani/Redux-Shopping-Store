@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
+import { idbPromise, getProductImageSrc, PLACEHOLDER_IMAGE } from "../../utils/helpers";
 
 const CartItem = ({ item }) => {
 
@@ -40,8 +40,9 @@ const CartItem = ({ item }) => {
     <div className="flex-row">
       <div>
         <img
-          src={`/images/${item.image}`}
+          src={getProductImageSrc(item.image)}
           alt=""
+          onError={(e) => { e.target.onerror = null; e.target.src = PLACEHOLDER_IMAGE; }}
         />
       </div>
       <div>

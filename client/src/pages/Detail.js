@@ -11,7 +11,8 @@ import {
   UPDATE_PRODUCTS,
 } from "../utils/actions";
 import { QUERY_PRODUCTS } from "../utils/queries";
-import { idbPromise } from "../utils/helpers";
+import { idbPromise, getProductImageSrc, PLACEHOLDER_IMAGE } from "../utils/helpers";
+import Auth from "../utils/auth";
 import spinner from "../assets/spinner.gif";
 
 function Detail() {
@@ -94,18 +95,25 @@ function Detail() {
 
           <p>
             <strong>Price:</strong>${currentProduct.price}{" "}
-            <button onClick={addToCart}>Add to Cart</button>
-            <button
-              disabled={!cart.find(p => p._id === currentProduct._id)}
-              onClick={removeFromCart}
-            >
-              Remove from Cart
-            </button>
+            {Auth.loggedIn() ? (
+              <>
+                <button onClick={addToCart}>Add to Cart</button>
+                <button
+                  disabled={!cart.find(p => p._id === currentProduct._id)}
+                  onClick={removeFromCart}
+                >
+                  Remove from Cart
+                </button>
+              </>
+            ) : (
+              <Link to="/login">Log in to add to cart</Link>
+            )}
           </p>
 
           <img
-            src={`/images/${currentProduct.image}`}
+            src={getProductImageSrc(currentProduct.image)}
             alt={currentProduct.name}
+            onError={(e) => { e.target.onerror = null; e.target.src = PLACEHOLDER_IMAGE; }}
           />
         </div>
       ) : null}

@@ -5,15 +5,33 @@ export function pluralize(name, count) {
   return name + 's';
 }
 
+export function getProductImageSrc(image) {
+  if (!image) return '';
+  return image.startsWith('http') ? image : `/images/${image}`;
+}
+
+// Placeholder when product image fails to load (avoids broken-image icon)
+export const PLACEHOLDER_IMAGE =
+  'data:image/svg+xml,' +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect fill="#e0e0e0" width="400" height="300"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9e9e9e" font-family="sans-serif" font-size="16">No image</text></svg>'
+  );
+
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
-    const request = window.indexedDB.open('shop-shop', 1);
+    const request = window.indexedDB.open('shop-shop', 2);
     let db, tx, store;
     request.onupgradeneeded = function(e) {
       const db = request.result;
-      db.createObjectStore('products', { keyPath: '_id' });
-      db.createObjectStore('categories', { keyPath: '_id' });
-      db.createObjectStore('cart', { keyPath: '_id' });
+      if (e.oldVersion < 1) {
+        db.createObjectStore('products', { keyPath: '_id' });
+        db.createObjectStore('categories', { keyPath: '_id' });
+        db.createObjectStore('cart', { keyPath: '_id' });
+      }
+      if (e.oldVersion < 2 && db.objectStoreNames.contains('products')) {
+        db.deleteObjectStore('products');
+        db.createObjectStore('products', { keyPath: '_id' });
+      }
     };
 
     request.onerror = function(e) {
