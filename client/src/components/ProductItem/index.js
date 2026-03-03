@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise, getProductImageSrc, PLACEHOLDER_IMAGE } from "../../utils/helpers";
+import { idbPromise, getProductImageSrc } from "../../utils/helpers";
 import Auth from "../../utils/auth";
 
 function ProductItem(item) {
