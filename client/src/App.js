@@ -15,7 +15,20 @@ import Nav from "./components/Nav";
 import Success from "./pages/Success";
 import OrderHistory from "./pages/OrderHistory";
 
-const apiUri = process.env.REACT_APP_API_URL || "/graphql";
+// Use Render API when on GitHub Pages; fallback to relative /graphql for local dev
+const apiUri =
+  process.env.REACT_APP_API_URL ||
+  (typeof window !== "undefined" && window.location.origin.includes("github.io")
+    ? "https://redux-shopping-store.onrender.com/graphql"
+    : "/graphql");
+
+// Basename for React Router: path only (e.g. /Redux-Shopping-Store), no trailing slash
+const basename = process.env.PUBLIC_URL
+  ? (process.env.PUBLIC_URL.startsWith("http")
+      ? new URL(process.env.PUBLIC_URL).pathname
+      : process.env.PUBLIC_URL
+    ).replace(/\/$/, "") || ""
+  : "";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -32,7 +45,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
+      <Router basename={basename}>
         <div>
           <Provider store={store}>
             <Nav />

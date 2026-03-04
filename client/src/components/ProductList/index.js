@@ -13,7 +13,7 @@ function ProductList() {
 
   const { currentCategory } = state;
 
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
+  const { loading, data, error } = useQuery(QUERY_PRODUCTS);
 
   useEffect(() => {
     if (data) {
@@ -47,7 +47,11 @@ function ProductList() {
   return (
     <div className="my-2">
       <h2>Our Products:</h2>
-      {state.products.length ? (
+      {loading && <img src={spinner} alt="loading" />}
+      {error && (
+        <p className="error">Could not load products. Check that the API is running and CORS is enabled. (Try again in 30–60s if the server was sleeping.)</p>
+      )}
+      {!loading && !error && state.products.length ? (
         <div className="flex-row">
           {filterProducts().map((product) => (
             <ProductItem
@@ -60,10 +64,10 @@ function ProductList() {
             />
           ))}
         </div>
-      ) : (
+      ) : null}
+      {!loading && !error && !state.products.length ? (
         <h3>You haven't added any products yet!</h3>
-      )}
-      {loading ? <img src={spinner} alt="loading" /> : null}
+      ) : null}
     </div>
   );
 }
