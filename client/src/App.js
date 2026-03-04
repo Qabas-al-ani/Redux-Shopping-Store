@@ -15,8 +15,10 @@ import Nav from "./components/Nav";
 import Success from "./pages/Success";
 import OrderHistory from "./pages/OrderHistory";
 
+const apiUri = process.env.REACT_APP_API_URL || "/graphql";
+
 const client = new ApolloClient({
-  request: operation => {
+  request: (operation) => {
     const token = localStorage.getItem("id_token");
     operation.setContext({
       headers: {
@@ -24,7 +26,7 @@ const client = new ApolloClient({
       },
     });
   },
-  uri: "/graphql",
+  uri: apiUri,
 });
 
 function App() {

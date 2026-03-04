@@ -2,9 +2,9 @@
 
 ## 🚀 Live Demo
 
-[Frontend](https://redux-shopping-store-frontend.netlify.app) | [Backend API](https://redux-shopping-store.onrender.com)
+[Frontend (GitHub Pages)](https://qabas-al-ani.github.io/Redux-Shopping-Store) | [Backend API](https://redux-shopping-store.onrender.com)
 
-> _Migrated from Heroku to modern cloud infrastructure (Netlify + Render) - demonstrating deployment adaptability_
+> _Frontend on GitHub Pages; backend on Render. First load after Render sleep may take ~30s._
 
 ---
 
@@ -40,8 +40,21 @@ I have created an e-commerce app that allows users to go online and shop whateve
 ### Installation
 
 ```
+npm install
 npm start
 ```
+
+### Deploy frontend to GitHub Pages
+
+From the repo root, install client deps and deploy:
+
+```bash
+cd client
+npm install --legacy-peer-deps
+npm run deploy
+```
+
+Then in GitHub: **Settings → Pages** → Source: **Deploy from a branch** → Branch: **gh-pages** → Save. The site will be at `https://<your-username>.github.io/Redux-Shopping-Store`.
 
 ### Usage
 

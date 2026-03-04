@@ -2,6 +2,7 @@
   "name": "mern-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://qabas-al-ani.github.io/Redux-Shopping-Store",
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "@apollo/client": "^3.3.7",
@@ -23,11 +24,15 @@
     "stripe": "^8.114.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "gh-pages": "^6.1.1"
   },
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "build:gh": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=https://redux-shopping-store.onrender.com/graphql react-scripts build",
+    "postbuild": "node -e \"require('fs').copyFileSync('build/index.html','build/404.html')\"",
+    "deploy": "npm run build:gh && gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
